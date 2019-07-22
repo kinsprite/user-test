@@ -24,5 +24,7 @@ spec:
         env:
           - name: ELASTIC_APM_SERVER_URL
             value: "{{ .Values.apmServerUrl }}"
+          - name: REDIS_SERVER_URL
+            value: "{{ .Values.redisServerUrl }}"
         resources:
 {{ toYaml .Values.resources | indent 12 }}

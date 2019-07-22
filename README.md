@@ -12,7 +12,7 @@ on Windows:
 ```cmd
 set GOPROXY=https://goproxy.io
 set GIN_MODE=release
-go build -tags=jsoniter -o user-test .
+go build -tags=jsoniter -o user-test.exe .
 ```
 
 or Linux:
