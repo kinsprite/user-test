@@ -7,7 +7,9 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-redis/redis v6.15.2+incompatible
+	github.com/go-sql-driver/mysql v1.4.1
 	github.com/google/go-cmp v0.3.0 // indirect
+	github.com/jmoiron/sqlx v1.2.1-0.20190426154859-38398a30ed85
 	github.com/json-iterator/go v1.1.6
 	github.com/kr/pty v1.1.4 // indirect
 	github.com/mattn/go-isatty v0.0.8 // indirect

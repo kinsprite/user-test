@@ -26,5 +26,30 @@ spec:
             value: "{{ .Values.apmServerUrl }}"
           - name: REDIS_SERVER_URL
             value: "{{ .Values.redisServerUrl }}"
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: user-db-config
+                key: MYSQL_DATABASE
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: user-db-config
+                key: MYSQL_USER
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: user-db-config
+                key: MYSQL_PASSWORD
+          - name: MYSQL_NET
+            valueFrom:
+              configMapKeyRef:
+                name: user-db-config
+                key: MYSQL_NET
+          - name: MYSQL_ADDR
+            valueFrom:
+              configMapKeyRef:
+                name: user-db-config
+                key: MYSQL_ADDR
         resources:
 {{ toYaml .Values.resources | indent 12 }}

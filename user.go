@@ -36,6 +36,8 @@ func init() {
 }
 
 func main() {
+	initDB()
+
 	engine := gin.New()
 	engine.Use(apmgin.Middleware(engine))
 
