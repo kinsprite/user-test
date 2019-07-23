@@ -23,14 +23,15 @@ CREATE TABLE place (
 
 ALTER TABLE user AUTO_INCREMENT = 10001;`
 
-var db sqlx.DB
+var db *sqlx.DB
 
 func initDB() {
 	driverName := os.Getenv("SQL_DRIVER_NAME")
 	dataSourceName := os.Getenv("SQL_DATA_SOURCE_NAME")
 
 	// MYSQL DSN format: username:password@protocol(address)/dbname?param=value
-	db, err := sqlx.Open(driverName, dataSourceName)
+	var err error
+	db, err = sqlx.Open(driverName, dataSourceName)
 
 	if err != nil {
 		log.Println("ERROR    Fail to open to the USER DB, ", err)
