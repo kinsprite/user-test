@@ -7,6 +7,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
       annotations:
@@ -26,30 +27,15 @@ spec:
             value: "{{ .Values.apmServerUrl }}"
           - name: REDIS_SERVER_URL
             value: "{{ .Values.redisServerUrl }}"
-          - name: MYSQL_DATABASE
+          - name: SQL_DRIVER_NAME
             valueFrom:
               configMapKeyRef:
                 name: user-db-config
-                key: MYSQL_DATABASE
-          - name: MYSQL_USER
+                key: driverName
+          - name: SQL_DATA_SOURCE_NAME
             valueFrom:
               configMapKeyRef:
                 name: user-db-config
-                key: MYSQL_USER
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                name: user-db-config
-                key: MYSQL_PASSWORD
-          - name: MYSQL_NET
-            valueFrom:
-              configMapKeyRef:
-                name: user-db-config
-                key: MYSQL_NET
-          - name: MYSQL_ADDR
-            valueFrom:
-              configMapKeyRef:
-                name: user-db-config
-                key: MYSQL_ADDR
+                key: dataSourceName
         resources:
 {{ toYaml .Values.resources | indent 12 }}

@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -23,28 +23,14 @@ CREATE TABLE place (
 
 ALTER TABLE user AUTO_INCREMENT = 10001;`
 
-// MYSQL DSN format: username:password@protocol(address)/dbname?param=value
-var sqlDSN string
 var db sqlx.DB
 
 func initDB() {
-	config := mysql.Config{
-		User:   os.Getenv("MYSQL_USER"),
-		Passwd: os.Getenv("MYSQL_PASSWORD"),
-		Net:    os.Getenv("MYSQL_NET"),
-		Addr:   os.Getenv("MYSQL_ADDR"),
-		DBName: os.Getenv("MYSQL_DATABASE"),
-		Params: map[string]string{
-			"charset":         "utf8",
-			"multiStatements": "true",
-			// "allowOldPasswords": "true"
-		},
-	}
+	driverName := os.Getenv("SQL_DRIVER_NAME")
+	dataSourceName := os.Getenv("SQL_DATA_SOURCE_NAME")
 
-	sqlDSN = config.FormatDSN()
-	log.Println("INFO   SQL's DSN: ", sqlDSN)
-
-	db, err := sqlx.Open("mysql", sqlDSN)
+	// MYSQL DSN format: username:password@protocol(address)/dbname?param=value
+	db, err := sqlx.Open(driverName, dataSourceName)
 
 	if err != nil {
 		log.Println("ERROR    Fail to open to the USER DB, ", err)
