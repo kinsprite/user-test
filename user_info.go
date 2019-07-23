@@ -6,3 +6,8 @@ type UserInfo struct {
 	Name  string `json:"name"  db:"name"`
 	Email string `json:"email" db:"email"`
 }
+
+type userInfoInput struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
