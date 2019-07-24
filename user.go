@@ -1,14 +1,21 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/json-iterator/go"
 	"go.elastic.co/apm/module/apmgin"
 )
 
 const prefixV1 = "/api/user/v1"
 const prefixV2 = "/api/user/v2"
+
+func init() {
+	log.Println("INFO   user.go init")
+}
 
 func main() {
 	initDB()

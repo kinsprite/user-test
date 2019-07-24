@@ -4,22 +4,15 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sync"
 
 	redis "github.com/go-redis/redis"
 	jsoniter "github.com/json-iterator/go"
 )
 
-var redisServerURL = "redis-cache:6379"
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
-type redisPoolItem struct {
-	client *redis.Client
-}
-
-var redisPool = sync.Pool{
-	New: newRedisConnection,
-}
+var redisServerURL = "redis-cache:6379"
+var client *redis.Client
 
 func init() {
 	url := os.Getenv("REDIS_SERVER_URL")
@@ -27,18 +20,14 @@ func init() {
 	if url != "" {
 		redisServerURL = url
 	}
-}
 
-func newRedisConnection() interface{} {
-	client := redis.NewClient(&redis.Options{
+	client = redis.NewClient(&redis.Options{
 		Addr:     redisServerURL,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
 
-	return &redisPoolItem{
-		client: client,
-	}
+	log.Println("INFO    Redis client init")
 }
 
 func getUserCacheKey(userID int) string {
@@ -46,15 +35,6 @@ func getUserCacheKey(userID int) string {
 }
 
 func getUserInfoFromCache(userID int) *UserInfo {
-	poolItem := redisPool.Get().(*redisPoolItem)
-	defer redisPool.Put(poolItem)
-
-	client := poolItem.client
-
-	if client == nil {
-		return nil
-	}
-
 	key := getUserCacheKey(userID)
 	val, err := client.Get(key).Result()
 
@@ -75,15 +55,6 @@ func getUserInfoFromCache(userID int) *UserInfo {
 }
 
 func setUserInfoToCache(userInfo *UserInfo) {
-	poolItem := redisPool.Get().(*redisPoolItem)
-	defer redisPool.Put(poolItem)
-
-	client := poolItem.client
-
-	if client == nil {
-		return
-	}
-
 	key := getUserCacheKey(userInfo.ID)
 	value, err := json.Marshal(userInfo)
 
