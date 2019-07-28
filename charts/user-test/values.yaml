@@ -21,3 +21,4 @@ ingress:
   enabled: false
 apmServerUrl: 'http://apm-server.logging:8200'
 redisServerUrl: 'redis-cache:6379'
+kafkaBrokerUrl: 'kafka:9092'

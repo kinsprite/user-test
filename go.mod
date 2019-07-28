@@ -15,6 +15,7 @@ require (
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/prometheus/procfs v0.0.2 // indirect
 	github.com/santhosh-tekuri/jsonschema v1.2.4 // indirect
+	github.com/segmentio/kafka-go v0.3.0
 	github.com/stretchr/objx v0.2.0 // indirect
 	go.elastic.co/apm/module/apmgin v1.4.0
 	golang.org/x/crypto v0.0.0-20190605123033-f99c8df09eb5 // indirect

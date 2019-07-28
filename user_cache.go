@@ -14,7 +14,7 @@ var json = jsoniter.ConfigCompatibleWithStandardLibrary
 var redisServerURL = "redis-cache:6379"
 var client *redis.Client
 
-func init() {
+func initCache() {
 	url := os.Getenv("REDIS_SERVER_URL")
 
 	if url != "" {
@@ -28,6 +28,10 @@ func init() {
 	})
 
 	log.Println("INFO    Redis client init")
+}
+
+func closeCache() {
+	client.Close()
 }
 
 func getUserCacheKey(userID int) string {

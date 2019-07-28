@@ -18,7 +18,14 @@ func init() {
 }
 
 func main() {
+	initCache()
+	defer closeCache()
+
 	initDB()
+	defer closeDB()
+
+	initMQ()
+	defer closeMQ()
 
 	engine := gin.New()
 	engine.Use(apmgin.Middleware(engine))

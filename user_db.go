@@ -53,6 +53,12 @@ func initDB() {
 	log.Println("INFO    Success to create schema to the USER DB")
 }
 
+func closeDB() {
+	if db != nil {
+		db.Close()
+	}
+}
+
 func createUserInfoToDB(userInfo *UserInfo) {
 	sql := "INSERT INTO user (name, email) VALUES (:name, :email)"
 
