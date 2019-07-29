@@ -19,17 +19,17 @@ func initMQ() {
 		kafkaBrokerURL = url
 	}
 
-	// make a writer that produces to topic-A, using the least-bytes distribution
+	// make a writer that produces to 'topic-user-creating', using the least-bytes distribution
 	w = kafka.NewWriter(kafka.WriterConfig{
 		Brokers:  []string{kafkaBrokerURL},
-		Topic:    "user-creating-topic",
+		Topic:    "topic-user-creating",
 		Balancer: &kafka.LeastBytes{},
 	})
 
 	if w == nil {
-		log.Println("ERROR    connecting to MQS 'user-creating-topic': FAILED")
+		log.Println("ERROR    connecting to MQS 'topic-user-creating': FAILED")
 	} else {
-		log.Println("INFO    connecting to MQS 'user-creating-topic': OK")
+		log.Println("INFO    connecting to MQS 'topic-user-creating': OK")
 	}
 }
 
@@ -54,8 +54,8 @@ func publishUserCreatingMsg(userInfo *UserInfo) {
 	)
 
 	if err != nil {
-		log.Println("ERROR    writting message to 'user-creating-topic': ", err)
+		log.Println("ERROR    writting message to 'topic-user-creating': ", err)
 	} else {
-		log.Println("INFO    writting message to 'user-creating-topic': OK")
+		log.Println("INFO    writting message to 'topic-user-creating': OK")
 	}
 }

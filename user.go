@@ -72,6 +72,7 @@ func main() {
 
 		if userInfo.ID != 0 {
 			setUserInfoToCache(userInfo)
+			publishUserCreatingMsg(userInfo)
 		}
 
 		c.JSON(http.StatusOK, userInfo)
