@@ -69,7 +69,7 @@ func createUserInfoToDB(userInfo *UserInfo) {
 	res, err := db.NamedExec(sql, userInfo)
 
 	if err != nil {
-		log.Println("ERROR   Insert user info to DB, user name: ", userInfo.Name)
+		log.Println("ERROR   Insert user info to DB, user name: ", userInfo.Name, ", ", err)
 		return
 	}
 
@@ -89,10 +89,10 @@ func createUserInfoToDB(userInfo *UserInfo) {
 
 func getUserInfoFromDB(userID int) *UserInfo {
 	userInfo := UserInfo{}
-	err := db.Get(&userInfo, "SELECT (id, name, email) FROM user WHERE id=$1", userID)
+	err := db.Get(&userInfo, "SELECT id, name, email FROM user WHERE id = ?", userID)
 
 	if err != nil {
-		log.Println("FAIL    Get user info from DB, user ID: ", userID)
+		log.Println("FAIL    Get user info from DB, user ID: ", userID, ", ", err)
 		return nil
 	}
 

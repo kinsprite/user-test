@@ -38,6 +38,6 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: user-db-config
-                key: dataSourceName
+                key: userDSN
         resources:
 {{ toYaml .Values.resources | indent 12 }}

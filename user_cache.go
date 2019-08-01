@@ -43,6 +43,7 @@ func getUserInfoFromCache(userID int) *UserInfo {
 	val, err := client.Get(key).Result()
 
 	if err != nil {
+		log.Println("WARN    redis can't get: ", key, ", ", err)
 		return nil
 	}
 
@@ -63,6 +64,7 @@ func setUserInfoToCache(userInfo *UserInfo) {
 	value, err := json.Marshal(userInfo)
 
 	if err != nil {
+		log.Println("WARN    redis set failed: ", key, ", ", err)
 		return
 	}
 
