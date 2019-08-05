@@ -30,6 +30,12 @@ func main() {
 	engine := gin.New()
 	engine.Use(apmgin.Middleware(engine))
 
+	engine.GET("/healthz", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "OK",
+		})
+	})
+
 	engine.POST("/login", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"token": "10020320090",
