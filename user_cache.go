@@ -11,7 +11,7 @@ import (
 
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
-var redisServerURL = "redis-cache:6379"
+var redisServerURL = "redis:6379"
 var client *redis.Client
 
 func initCache() {
